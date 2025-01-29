@@ -9,8 +9,8 @@ get '/' => sub {
     return $c->render('index.tx');
 };
 
-# アンケートの質問ページへのルーティング（1ページ目）
-any '/question/1' => sub {
+# indexページの後に設問1のページを表示
+post '/question/1' => sub {
     my ($c) = @_;
     return $c->render('question1.tx', {
         question_number => 1,
@@ -18,8 +18,8 @@ any '/question/1' => sub {
     });
 };
 
-# アンケートの質問ページへのルーティング（2ページ目）
-any '/question/2' => sub {
+# 設問1の後に設問2のページ表示
+post '/question/2' => sub {
     my ($c) = @_;
     return $c->render('question2.tx', {
         question_number => 2,

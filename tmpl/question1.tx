@@ -6,7 +6,7 @@
     /* 進捗ゲージのスタイル */
     .progress-bar {
         width: 100%; /* ゲージ全体の幅 */
-        background-color: #f3f3f3; /* 背景色 */
+        background-color:rgba(243, 243, 243, 0.7); /* 背景色 */
         border-radius: 10px;
         height: 20px; /* ゲージの高さ */
     }
@@ -32,13 +32,13 @@
     </div>
     <br>
 
-    <div class="alert alert-light border mt-4" style="padding: 15px; border-radius: 10px; text-align: left;">
-      <p class="lead" style="font-size: 16px;">設問1: あなたの名前を教えてください。</p>
-      <input type="text" name="name" class="form-control" required>
-    </div>
+    <form action="/question/2" method="POST" class="mt-4">
+      <div class="alert alert-light border mt-4" style="padding: 15px; border-radius: 10px; text-align: left;">
+        <p class="lead" style="font-size: 16px;">設問1: あなたの名前を教えてください。</p>
+        <input type="text" name="name" class="form-control" required>
+      </div>
 
-    <form action="/question2" method="POST" class="mt-4">
-        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; max-width: 300px; margin-top: 10px;">次へ</button>
+      <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; max-width: 300px; margin-top: 10px;">次へ</button>
     </form>
 </div>
 
