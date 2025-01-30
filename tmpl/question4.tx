@@ -1,0 +1,142 @@
+: cascade "include/layout.tx"
+
+: override content -> {
+
+<style>
+    /* 進捗ゲージのスタイル */
+    .progress-bar {
+        width: 100%; /* ゲージ全体の幅 */
+        background-color:rgba(243, 243, 243, 0.7); /* 背景色 */
+        border-radius: 10px;
+        height: 20px; /* ゲージの高さ */
+    }
+
+    .progress-bar-fill {
+        height: 100%; /* ゲージの高さを100%に */
+        background-color: #4caf50; /* 進捗を示す部分の色（緑） */
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        line-height: 20px; /* ゲージ内の文字を中央に配置 */
+    }
+
+
+    /* 選択肢のデフォルトスタイル */
+    .form-check {
+        background-color: #f3f3f3; /* デフォルトの背景色 */
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* チェックボックスのラベル */
+    .form-check label {
+        font-weight: bold;
+        
+        transition: color 0.3s ease;
+    }
+
+    /* 選択された場合のスタイル */
+    .form-check.selected {
+        background-color: #007bff !important; /* 選択時の背景色（青） */
+        color: white;
+    }
+
+    /* 選択されていないチェックボックスのスタイル */
+    .form-check.disabled {
+        background-color: #e0e0e0 !important; /* グレー */
+        color: gray !important; /* 文字もグレー */
+    }
+</style>
+
+<div class="container text-center" style="max-width: 360px; margin: 0 auto; padding: 20px;">
+    <h1 class="mt-4" style="font-size: 24px;">お酒に関するアンケート</h1>
+
+    <!-- 進捗ゲージ -->
+    <div class="progress-bar" style="width: 100%; background-color: #f3f3f3; border-radius: 10px; height: 20px;">
+        <div class="progress-bar-fill" style="width: 80%; background-color: #4caf50; border-radius: 10px; text-align: center; color: white; line-height: 20px;">
+            4 / 5
+        </div>
+    </div>
+    <br>
+
+    <form action="/question/5" method="POST" class="mt-4">
+      <div class="alert alert-light border mt-4" style="padding: 15px; border-radius: 10px; text-align: left;">
+        <p class="lead" style="font-size: 16px;">設問4: よく飲むお酒を教えてください。</p>
+        
+        <hr> <!-- 水平線を追加 -->
+        <div class="form-check">
+            <input class="form-check-input drink-checkbox" type="checkbox" name="drink" value="ビール" id="beer">
+            <label class="form-check-label" for="beer">ビール</label>
+        </div>
+        <hr> <!-- 水平線を追加 -->
+        <div class="form-check">
+            <input class="form-check-input drink-checkbox" type="checkbox" name="drink" value="ワイン" id="wine">
+            <label class="form-check-label" for="wine">ワイン</label>
+        </div>
+        <hr> <!-- 水平線を追加 -->
+        <div class="form-check">
+            <input class="form-check-input drink-checkbox" type="checkbox" name="drink" value="シャンパン" id="champagne">
+            <label class="form-check-label" for="champagne">シャンパン</label>
+        </div>
+        <hr> <!-- 水平線を追加 -->
+        <div class="form-check">
+            <input class="form-check-input drink-checkbox" type="checkbox" name="drink" value="日本酒" id="sake">
+            <label class="form-check-label" for="sake">日本酒</label>
+        </div>
+        <hr> <!-- 水平線を追加 -->
+        <div class="form-check">
+            <input class="form-check-input drink-checkbox" type="checkbox" name="drink" value="紹興酒" id="shaoxing">
+            <label class="form-check-label" for="shaoxing">紹興酒</label>
+        </div>
+        <hr> <!-- 水平線を追加 -->
+        <div class="form-check">
+            <input class="form-check-input drink-checkbox" type="checkbox" name="drink" value="焼酎" id="shochu">
+            <label class="form-check-label" for="shochu">焼酎</label>
+        </div>
+        <hr> <!-- 水平線を追加 -->
+        <div class="form-check">
+            <input class="form-check-input drink-checkbox" type="checkbox" name="drink" value="ウイスキー" id="whiskey">
+            <label class="form-check-label" for="whiskey">ウイスキー</label>
+        </div>
+        <hr> <!-- 水平線を追加 -->
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; max-width: 300px; margin-top: 10px;">次へ</button>
+    </form>
+</div>
+
+<script>
+    // HTML読込完了後、関数実行
+    document.addEventListener("DOMContentLoaded", function () {
+        // すべての「よく飲むお酒」のチェックボックスを取得
+        const checkboxes = document.querySelectorAll(".drink-checkbox");
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener("change", function () {
+                if (this.checked) {
+                    // すべてのチェックボックスをループ処理
+                    checkboxes.forEach(cb => {
+                        const parent = cb.closest(".form-check"); // 親のdivを取得
+                        if (cb === this) {
+                            parent.classList.add("selected"); // 選択された項目にクラス追加
+                            parent.classList.remove("disabled"); // 無効化解除
+                        } else {
+                            cb.disabled = true; // 他のチェックボックスを無効化
+                            parent.classList.remove("selected");
+                            parent.classList.add("disabled"); // 無効化スタイルを追加
+                        }
+                    });
+                } else {
+                    // すべてのチェックボックスを有効化
+                    checkboxes.forEach(cb => {
+                        cb.disabled = false;
+                        const parent = cb.closest(".form-check");
+                        parent.classList.remove("selected");
+                        parent.classList.remove("disabled");
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+: }
