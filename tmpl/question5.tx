@@ -32,7 +32,7 @@
     </div>
     <br>
 
-    <form action="/question/5" method="POST" class="mt-4">
+    <form action="/confirm" method="POST" class="mt-4">
       <div class="alert alert-light border mt-4" style="padding: 15px; border-radius: 10px; text-align: left;">
         <p class="lead" style="font-size: 16px;">設問5: 備考※自由記入</p>
         <textarea id="remarks" name="remarks" class="form-control" rows="4" cols="50"></textarea>

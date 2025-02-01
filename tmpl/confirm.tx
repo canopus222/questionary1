@@ -1,0 +1,20 @@
+: cascade "include/layout.tx"
+
+: override content -> {
+
+<div class="container text-center" style="max-width: 360px; margin: 0 auto; padding: 20px;">
+    <h1 class="mt-4" style="font-size: 24px;">入力内容確認</h1>
+
+    <div class="alert alert-light border mt-4" style="padding: 15px; border-radius: 10px;">
+        <p><strong>名前:</strong> <: $name :></p>
+        <p><strong>年齢:</strong> <: $age :></p>
+        <p><strong>職業:</strong> <: $occupation :></p>
+        <p><strong>よく飲むお酒:</strong> <: $drink :></p>
+        <p><strong>備考:</strong> <: $remarks :></p>
+    </div>
+
+    <form action="/submit" method="POST">
+        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; max-width: 300px; margin-top: 10px;">送信</button>
+    </form>
+</div>
+: }
