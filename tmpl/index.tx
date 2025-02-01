@@ -16,7 +16,8 @@
         </ul>
     </div>
 
-    <form action="/start-survey" method="POST" class="mt-4">
+    <!-- ボタンを押したらquestion/1のページへ遷移 -->
+    <form action="/question/1" method="POST" class="mt-4">
         <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; max-width: 300px; margin-top: 10px;">同意して回答する</button>
     </form>
 </div>

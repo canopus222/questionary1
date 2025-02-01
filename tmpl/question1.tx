@@ -1,0 +1,45 @@
+: cascade "include/layout.tx"
+
+: override content -> {
+
+<style>
+    /* 進捗ゲージのスタイル */
+    .progress-bar {
+        width: 100%; /* ゲージ全体の幅 */
+        background-color:rgba(243, 243, 243, 0.7); /* 背景色 */
+        border-radius: 10px;
+        height: 20px; /* ゲージの高さ */
+    }
+
+    .progress-bar-fill {
+        height: 100%; /* ゲージの高さを100%に */
+        background-color: #4caf50; /* 進捗を示す部分の色（緑） */
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        line-height: 20px; /* ゲージ内の文字を中央に配置 */
+    }
+</style>
+
+<div class="container text-center" style="max-width: 360px; margin: 0 auto; padding: 20px;">
+    <h1 class="mt-4" style="font-size: 24px;">お酒に関するアンケート</h1>
+
+    <!-- 進捗ゲージ -->
+    <div class="progress-bar" style="width: 100%; background-color: #f3f3f3; border-radius: 10px; height: 20px;">
+        <div class="progress-bar-fill" style="width: 20%; background-color: #4caf50; border-radius: 10px; text-align: center; color: white; line-height: 20px;">
+            1 / 5
+        </div>
+    </div>
+    <br>
+
+    <form action="/question/2" method="POST" class="mt-4">
+      <div class="alert alert-light border mt-4" style="padding: 15px; border-radius: 10px; text-align: left;">
+        <p class="lead" style="font-size: 16px;">設問1: あなたの名前を教えてください。</p>
+        <input type="text" name="name" class="form-control" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; max-width: 300px; margin-top: 10px;">次へ</button>
+    </form>
+</div>
+
+: }
