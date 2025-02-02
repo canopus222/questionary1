@@ -101,4 +101,44 @@ post '/confirm' => sub {
     });
 };
 
+use DBI;
+
+post '/submit' => sub {
+    my ($c) = @_;
+
+    # セッション(一時的にデータ保持する仕組み)からデータを取得
+    my $name        = $c->session->get('name');
+    my $age         = $c->session->get('age');
+    my $occupation  = $c->session->get('occupation');
+    my $drink       = $c->session->get('drink');
+    my $remarks     = $c->session->get('remarks');
+
+    # データベースに接続
+    my $dbh = DBI->connect(
+        "DBI:mysql:dbname=question01;host=localhost",
+        "question01",
+        "2Mooveh",
+        { mysql_enable_utf8 => 1 }
+    );
+
+    # データをINSERT
+    my $sth = $dbh->prepare("INSERT INTO member (name, age, occupation, drink, remarks) VALUES (?, ?, ?, ?, ?)");
+    $sth->execute($name, $age, $occupation, $drink, $remarks);
+
+    # セッションをクリア（不要になったので削除）
+    $c->session->remove('name');
+    $c->session->remove('age');
+    $c->session->remove('occupation');
+    $c->session->remove('drink');
+    $c->session->remove('remarks');
+
+    return $c->redirect('/complete');  # 完了ページへリダイレクト
+};
+
+# /complete のルートを追加
+get '/complete' => sub {
+    my ($c) = @_;
+    return $c->render('complete.tx');  # complete.tx を表示する
+};
+
 1;
