@@ -1,7 +1,8 @@
 requires 'Amon2', '6.16';
 requires 'Crypt::CBC';
 requires 'Crypt::Rijndael';
-requires 'DBD::SQLite', '1.33';
+# requires 'DBD::SQLite', '1.33';
+requires 'DBD::mysql';
 requires 'HTML::FillInForm::Lite', '1.11';
 requires 'HTTP::Session2', '1.03';
 requires 'JSON', '2.50';

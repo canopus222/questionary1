@@ -1,0 +1,8 @@
+: cascade "include/layout.tx"
+
+: override content -> {
+<div class="container text-center">
+    <h1>アンケートのご回答ありがとうございました！</h1>
+    <p>あなたの回答は正常に送信されました。</p>
+</div>
+: }
