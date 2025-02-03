@@ -30,7 +30,6 @@
     /* チェックボックスのラベル */
     .form-check label {
         font-weight: bold;
-        
         transition: color 0.3s ease;
     }
 
@@ -61,7 +60,7 @@
     <form action="/question/5" method="POST" class="mt-4">
       <div class="alert alert-light border mt-4" style="padding: 15px; border-radius: 10px; text-align: left;">
         <p class="lead" style="font-size: 16px;">設問4: よく飲むお酒を教えてください。</p>
-        
+        <span class="badge bg-danger" style="color: white;">必須</span>
         <hr> <!-- 水平線を追加 -->
         <div class="form-check">
             <input class="form-check-input drink-checkbox" type="checkbox" name="drink" value="ビール" id="beer">
@@ -109,8 +108,20 @@
     document.addEventListener("DOMContentLoaded", function () {
         // すべての「よく飲むお酒」のチェックボックスを取得
         const checkboxes = document.querySelectorAll(".drink-checkbox");
+        
+        // 送信ボタンを取得
+        const submitButton = document.querySelector("button[type='submit']");
+        // 初期状態で送信ボタンを無効化。（disabled）
+        submitButton.disabled = true;
+        // 送信ボタンの有効・無効を更新する関数
+        function updateSubmitButtonState() {
+            // 1つでもチェックされているか確認
+            const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+            submitButton.disabled = !anyChecked; // 選択されていなければ無効化
+        }
 
         checkboxes.forEach(checkbox => {
+            // チェックボックスの状態が変わったら実行する
             checkbox.addEventListener("change", function () {
                 if (this.checked) {
                     // すべてのチェックボックスをループ処理
@@ -134,6 +145,8 @@
                         parent.classList.remove("disabled");
                     });
                 }
+                // 送信ボタンの状態を更新
+                updateSubmitButtonState();
             });
         });
     });

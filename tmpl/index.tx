@@ -10,9 +10,10 @@
     <div class="alert alert-light border mt-4" style="padding: 15px; border-radius: 10px; text-align: left;">
         <h2 style="font-size: 18px; text-align: center;">注意事項</h2>
         <ul style="list-style: none; padding: 0; margin: 0;">
-            <li style="margin-bottom: 5px;">・このアンケートは統計目的でのみ使用されます。</li>
+            <li style="margin-bottom: 5px;">・統計目的でのみ使用されます。</li>
             <li style="margin-bottom: 5px;">・個人を特定する情報は収集しません。</li>
-            <li>・全ての質問に回答してください。</li>
+            <li style="margin-bottom: 5px;">・全ての質問に回答してください。</li>
+            <li>・「戻る」ボタンは押さないでください。</li>
         </ul>
     </div>
 

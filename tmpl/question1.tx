@@ -35,7 +35,8 @@
     <form action="/question/2" method="POST" class="mt-4">
       <div class="alert alert-light border mt-4" style="padding: 15px; border-radius: 10px; text-align: left;">
         <p class="lead" style="font-size: 16px;">設問1: あなたの名前を教えてください。</p>
-        <input type="text" name="name" class="form-control" required>
+        <span class="badge bg-danger" style="color: white;">必須</span>
+        <input type="text" name="name" class="form-control" placeholder="例：酒盛　弥生" required>
       </div>
 
       <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; max-width: 300px; margin-top: 10px;">次へ</button>
