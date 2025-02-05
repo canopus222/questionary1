@@ -82,22 +82,19 @@ any '/question/5' => sub {
     });
 };
 
+# 設問5ページから確認ページへの遷移に関わる処理
 post '/confirm' => sub {
     my ($c) = @_;
-    my $remarks = $c->req->param('remarks');
-
-    if (!$remarks) {
-        return $c->redirect('/question/5');
-    }
+    my $remarks = $c->req->param('remarks') // '';  # undefだった場合、代わりに ''（空文字）を入れる
 
     $c->session->set('remarks' => $remarks);
 
     return $c->render('confirm.tx', {
-        name   => $c->session->get('name'),
-        age  => $c->session->get('age'),
+        name       => $c->session->get('name'),
+        age        => $c->session->get('age'),
         occupation => $c->session->get('occupation'),
-        drink  => $c->session->get('drink'),
-        remarks => $remarks,
+        drink      => $c->session->get('drink'),
+        remarks    => $remarks,
     });
 };
 
