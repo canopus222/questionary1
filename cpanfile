@@ -15,6 +15,7 @@ requires 'Test::WWW::Mechanize::PSGI';
 requires 'Text::Xslate', '2.0009';
 requires 'Time::Piece', '1.20';
 requires 'perl', '5.010_001';
+requires 'Config::Tiny';
 
 on configure => sub {
     requires 'Module::Build', '0.38';
