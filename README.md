@@ -93,3 +93,34 @@
     ・終了
     ctrl + cキー
     ```
+
+## MySQLのセット手順
+```
+1：MySQLにログイン
+$ mysql -u root
+
+2：以下mysql内で実行するコマンド
+CREATE DATABASE <DB名>;
+CREATE USER '<ユーザー名>'@'localhost' IDENTIFIED BY '<パスワード>';
+GRANT ALL PRIVILEGES ON <DB名>.* TO '<ユーザー名>'@'localhost';
+FLUSH PRIVILEGES;
+
+
+※「FLUSH PRIVILEGES;」はMySQLに設定されたユーザー権限情報を即時反映させる ためのものになります。
+```
+
+## **環境変数の設定**
+データベース接続情報は `.env` ファイルに記載してください。  
+**`.env` の作成手順**
+```
+$ touch .env
+```
+**`.env` に記載**
+```
+DB_NAME=<DB名>
+DB_USER=<ユーザー名>
+DB_PASS=<パスワード>
+DB_HOST=localhost
+```
+
+⚠️`.gitignore`に`.env`を追加しているため、GitHub には公開されないようになっていますが、注意してください。
