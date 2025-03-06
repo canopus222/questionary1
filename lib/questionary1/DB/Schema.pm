@@ -12,7 +12,11 @@ base_row_class 'questionary1::DB::Row';
 table {
     name 'member';
     pk 'id';
-    columns qw(id name age occupation drink remarks);
+    columns qw(id name birthdate occupation_id drink_id remarks created_at updated_at);
+    
+    # 外部キー制約を設定
+    belongs_to 'occupation' => 'questionary1::DB::Occupation', 'occupation_id';
+    belongs_to 'drink' => 'questionary1::DB::Drink', 'drink_id';
 };
 
 1;
