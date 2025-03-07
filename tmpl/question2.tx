@@ -34,13 +34,34 @@
 
     <form action="/question/3" method="POST" class="mt-4">
       <div class="alert alert-light border mt-4" style="padding: 15px; border-radius: 10px; text-align: left;">
-        <p class="lead" style="font-size: 16px;">設問2: あなたの年齢を教えてください。</p>
+        <p class="lead" style="font-size: 16px;">設問2: あなたの誕生日を教えてください。</p>
         <span class="badge bg-danger" style="color: white;">必須</span>
-        <input type="number" name="age" class="form-control" min="1" max="120" required>
+        <input type="data" name="birthdate" class="form-control" min="1" max="120" placeholder="例：1991/01/01" required>
+      </div>
+
+      <!-- 年齢表示欄 -->
+      <div class="alert alert-light border mt-4" style="padding: 15px; border-radius: 10px; text-align: left;">
+        <p class="lead" style="font-size: 16px;">あなたの年齢は以下の通りです：</p>
+        <span id="ageDisplay" style="font-size: 18px;"><%= age %>歳</span>
       </div>
 
       <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; max-width: 300px; margin-top: 10px;">次へ</button>
     </form>
 </div>
+
+<script>
+    // 誕生日入力が変更された時に年齢を計算して表示
+    document.querySelector('[name="birthdate"]').addEventListener('change', function() {
+        let birthdate = new Date(this.value);
+        let age = new Date().getFullYear() - birthdate.getFullYear();
+        let month = new Date().getMonth() - birthdate.getMonth();
+        
+        if (month < 0 || (month === 0 && new Date().getDate() < birthdate.getDate())) {
+            age--; // まだ誕生日が来ていない場合は1歳引く
+        }
+
+        document.getElementById('ageDisplay').innerText = age + "歳";  // 計算した年齢を表示
+    });
+</script>
 
 : }

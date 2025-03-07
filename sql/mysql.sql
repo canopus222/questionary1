@@ -1,8 +1,28 @@
+-- 職業テーブル (occupation)
+CREATE TABLE IF NOT EXISTS occupation (
+    id   INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(60) NOT NULL UNIQUE,
+    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- 飲み物テーブル (drink)
+CREATE TABLE IF NOT EXISTS drink (
+    id   INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(60) NOT NULL UNIQUE,
+    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS member (
     id          INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name        VARCHAR(255) NOT NULL,
-    age         INTEGER NOT NULL,
-    occupation  ENUM('会社員', '自営業', '学生', '主婦（夫）', 'その他') NOT NULL,
-    drink       ENUM('ビール', 'ワイン', 'シャンパン', '日本酒', '紹興酒', '焼酎', 'ウイスキー') NOT NULL,
-    remarks     TEXT
-)
+    name        VARCHAR(60) NOT NULL,
+    birthdate   DATE NOT NULL,
+    occupation_id INTEGER NOT NULL,
+    drink_id     INTEGER NOT NULL,
+    remarks     TEXT,
+    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (occupation_id) REFERENCES occupation(id),
+    FOREIGN KEY (drink_id) REFERENCES drink(id)
+);

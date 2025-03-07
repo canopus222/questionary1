@@ -14,7 +14,7 @@ post '/question/1' => sub {
     my ($c) = @_;
     return $c->render('question1.tx', {
         question_number => 1,
-        total_questions => 5, # 全5問の場合
+        total_questions => 5,
     });
 };
 
@@ -30,55 +30,55 @@ post '/question/2' => sub {
     $c->session->set('name' => $name);  # セッションに保存
     return $c->render('question2.tx', {
         question_number => 2,
-        total_questions => 5, # 全5問の場合
+        total_questions => 5,
     });
 };
 
 # 設問2の後に設問3のページ表示
 any '/question/3' => sub {
     my ($c) = @_;
-    my $age = $c->req->param('age');
+    my $birthdate = $c->req->param('birthdate');
 
-    if (!$age) {
+    if (!$birthdate) {
         return $c->redirect('/question/2');
     }
 
-    $c->session->set('age' => $age);
+    $c->session->set('birthdate' => $birthdate);
     return $c->render('question3.tx', {
         question_number => 3,
-        total_questions => 5, # 全5問の場合
+        total_questions => 5,
     });
 };
 
 # 設問3の後に設問4のページ表示
 any '/question/4' => sub {
     my ($c) = @_;
-    my $occupation = $c->req->param('occupation');
+    my $occupation_id = $c->req->param('occupation_id');
 
-    if (!$occupation) {
+    if (!$occupation_id) {
         return $c->redirect('/question/3');
     }
 
-    $c->session->set('occupation' => $occupation);
+    $c->session->set('occupation_id' => $occupation_id);
     return $c->render('question4.tx', {
         question_number => 4,
-        total_questions => 5, # 全5問の場合
+        total_questions => 5,
     });
 };
 
 # 設問4の後に設問5のページ表示
 any '/question/5' => sub {
     my ($c) = @_;
-    my $drink = $c->req->param('drink');
+    my $drink_id = $c->req->param('drink_id');
 
-    if (!$drink) {
+    if (!$drink_id) {
         return $c->redirect('/question/4');
     }
 
-    $c->session->set('drink' => $drink);
+    $c->session->set('drink_id' => $drink_id);
     return $c->render('question5.tx', {
         question_number => 5,
-        total_questions => 5, # 全5問の場合
+        total_questions => 5,
     });
 };
 
@@ -91,9 +91,9 @@ post '/confirm' => sub {
 
     return $c->render('confirm.tx', {
         name       => $c->session->get('name'),
-        age        => $c->session->get('age'),
-        occupation => $c->session->get('occupation'),
-        drink      => $c->session->get('drink'),
+        birthdate     => $c->session->get('birthdate'),
+        occupation_id => $c->session->get('occupation_id'),
+        drink_id      => $c->session->get('drink_id'),
         remarks    => $remarks,
     });
 };
@@ -106,9 +106,9 @@ post '/submit' => sub {
 
     # セッション(一時的にデータ保持する仕組み)からデータを取得
     my $name        = $c->session->get('name');
-    my $age         = $c->session->get('age');
-    my $occupation  = $c->session->get('occupation');
-    my $drink       = $c->session->get('drink');
+    my $birthdate   = $c->session->get('birthdate');
+    my $occupation_id  = $c->session->get('occupation_id');
+    my $drink_id       = $c->session->get('drink_id');
     my $remarks     = $c->session->get('remarks');
 
     use questionary1::Web::Config;
@@ -122,14 +122,14 @@ post '/submit' => sub {
     );
 
     # データをINSERT
-    my $sth = $dbh->prepare("INSERT INTO member (name, age, occupation, drink, remarks) VALUES (?, ?, ?, ?, ?)");
-    $sth->execute($name, $age, $occupation, $drink, $remarks);
+    my $sth = $dbh->prepare("INSERT INTO member (name, birthdate, occupation_id, drink_id, remarks) VALUES (?, ?, ?, ?, ?)");
+    $sth->execute($name, $birthdate, $occupation_id, $drink_id, $remarks);
 
     # セッションをクリア（不要になったので削除）
     $c->session->remove('name');
-    $c->session->remove('age');
-    $c->session->remove('occupation');
-    $c->session->remove('drink');
+    $c->session->remove('birthdate');
+    $c->session->remove('occupation_id');
+    $c->session->remove('drink_id');
     $c->session->remove('remarks');
 
     return $c->redirect('/complete');  # 完了ページへリダイレクト

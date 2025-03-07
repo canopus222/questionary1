@@ -12,7 +12,21 @@ base_row_class 'questionary1::DB::Row';
 table {
     name 'member';
     pk 'id';
-    columns qw(id name age occupation drink remarks);
+    columns qw(id name birthdate occupation_id drink_id remarks created_at updated_at);
+
+    # occupation_id から occupation テーブルのデータを取得
+    inflate 'occupation_id' => sub {
+        my ($col_value, $row) = @_;
+        return $row->handle->single('occupation', { id => $col_value });
+    };
+
+    # drink_id から drink テーブルのデータを取得
+    inflate 'drink_id' => sub {
+        my ($col_value, $row) = @_;
+        return $row->handle->single('drink', { id => $col_value });
+    };
+
 };
+
 
 1;
