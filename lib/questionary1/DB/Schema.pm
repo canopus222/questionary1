@@ -13,10 +13,20 @@ table {
     name 'member';
     pk 'id';
     columns qw(id name birthdate occupation_id drink_id remarks created_at updated_at);
-    
-    # 外部キー制約を設定
-    belongs_to 'occupation' => 'questionary1::DB::Occupation', 'occupation_id';
-    belongs_to 'drink' => 'questionary1::DB::Drink', 'drink_id';
+
+    # occupation_id から occupation テーブルのデータを取得
+    inflate 'occupation_id' => sub {
+        my ($col_value, $row) = @_;
+        return $row->handle->single('occupation', { id => $col_value });
+    };
+
+    # drink_id から drink テーブルのデータを取得
+    inflate 'drink_id' => sub {
+        my ($col_value, $row) = @_;
+        return $row->handle->single('drink', { id => $col_value });
+    };
+
 };
+
 
 1;

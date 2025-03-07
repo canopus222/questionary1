@@ -36,13 +36,13 @@
       <div class="alert alert-light border mt-4" style="padding: 15px; border-radius: 10px; text-align: left;">
         <p class="lead" style="font-size: 16px;">設問3: あなたの職業を教えてください。</p>
         <span class="badge bg-danger" style="color: white;">必須</span>
-        <select name="occupation" class="form-control" required>
+        <select name="occupation_id" class="form-control" required>
             <option value="">選択してください</option>
-            <option value="会社員">会社員</option>
-            <option value="自営業">自営業</option>
-            <option value="学生">学生</option>
-            <option value="主婦（夫）">主婦（夫）</option>
-            <option value="その他">その他</option>
+            <option value="1">会社員</option>
+            <option value="2">自営業</option>
+            <option value="3">学生</option>
+            <option value="4">主婦（夫）</option>
+            <option value="5">その他</option>
         </select>
       </div>
 
