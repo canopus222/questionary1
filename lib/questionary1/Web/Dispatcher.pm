@@ -89,11 +89,40 @@ post '/confirm' => sub {
 
     $c->session->set('remarks' => $remarks);
 
+    # ここで occupation_id と drink_id を session から取得する
+    my $occupation_id = $c->session->get('occupation_id');
+    my $drink_id      = $c->session->get('drink_id');
+
+    # warn "occupation_id: $occupation_id";  # <-- ログ出力
+    # warn "drink_id: $drink_id";            # <-- ログ出力
+
+    # データベース接続を作成
+    use questionary1::Web::Config;
+    my $dbh = DBI->connect(
+        "DBI:mysql:dbname=" . questionary1::Web::Config::get('DB_NAME') . ";host=" . questionary1::Web::Config::get('DB_HOST'),
+        questionary1::Web::Config::get('DB_USER'),
+        questionary1::Web::Config::get('DB_PASS'),
+        { mysql_enable_utf8 => 1 }
+    );
+
+    # occupation_id に対応する職業名を取得
+    my $occupation_name = $dbh->selectrow_array(
+        "SELECT name FROM occupation WHERE id = ?", undef, $occupation_id
+    );
+
+    # drink_id に対応する飲み物名を取得
+    my $drink_name = $dbh->selectrow_array(
+        "SELECT name FROM drink WHERE id = ?", undef, $drink_id
+    );
+
+    # warn "occupation_name: $occupation_name";  # <-- ログ出力
+    # warn "drink_name: $drink_name";            # <-- ログ出力
+
     return $c->render('confirm.tx', {
         name       => $c->session->get('name'),
         birthdate     => $c->session->get('birthdate'),
-        occupation_id => $c->session->get('occupation_id'),
-        drink_id      => $c->session->get('drink_id'),
+        occupation_name => $occupation_name,
+        drink_name      => $drink_name,
         remarks    => $remarks,
     });
 };
